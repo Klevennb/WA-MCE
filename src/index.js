@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
-import React from "react";
+import { createRoot } from 'react-dom/client';
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -33,9 +33,11 @@ const store = createStore(
 // rootSaga contains all of our other sagas
 sagaMiddleware.run(rootSaga);
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container)
+
+root.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById("root")
 );
