@@ -20,14 +20,11 @@ export const MCEEditor = (props: Props) => {
       );
     }
   }, [handleSave, saving]);
-  console.log('test');
-
-  console.log(process.env);
 
   return (
     <div className="mb-12 w-full flex justify-center">
       <Editor
-        apiKey={process.env.TINYMCE_API_KEY}
+        apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
         onInit={(evt, editor) => {
           editorRef.current = editor;
         }}

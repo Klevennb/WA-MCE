@@ -12,8 +12,6 @@ type Props = {
 };
 export const Editor = (props: Props) => {
   const { entryToEdit } = props;
-  console.log('entry', entryToEdit);
-
   const [title, setTitle] = useState(entryToEdit ? entryToEdit.name : '');
   const [saveToggle, setSaveToggle] = useState(false);
   const [editorHasContent, setEditorHasContent] = useState(false);
@@ -50,11 +48,6 @@ export const Editor = (props: Props) => {
     <div>
       <div className="w-5/6">
         <div className="my-12 flex justify-center">
-          <MCEEditor
-            handleSave={handleSave}
-            saving={saveToggle}
-            storyToEdit=""
-          />
           <TextField
             className="w-1/2 "
             id="title"
