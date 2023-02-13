@@ -4,13 +4,12 @@ import { style } from './styles';
 
 interface Props {
   onUse: (category: string) => void;
-  onCancel: () => void;
   handleOpen: () => void;
   open: boolean;
 }
 
 export const PromptModal = (props: Props) => {
-  const { onUse, onCancel, open, handleOpen } = props;
+  const { onUse, open, handleOpen } = props;
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const handleCategorySelection = (category: string) => {
@@ -52,7 +51,7 @@ export const PromptModal = (props: Props) => {
               </Button>
             </div>
             <div>
-              <Button onClick={onCancel}>Cancel</Button>
+              <Button onClick={handleOpen}>Cancel</Button>
               <Button onClick={handleUse}>Use</Button>
             </div>
           </Box>
