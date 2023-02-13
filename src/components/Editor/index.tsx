@@ -1,5 +1,6 @@
 import { TextField, Button } from '@mui/material';
 import { editEntry, saveEntry } from 'actions/entries';
+import { PromptModal } from 'components/Basic/Modal/PromptModal';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -14,8 +15,10 @@ export const Editor = (props: Props) => {
   const { entryToEdit } = props;
   const [title, setTitle] = useState(entryToEdit ? entryToEdit.name : '');
   const [saveToggle, setSaveToggle] = useState(false);
-  const [editorHasContent, setEditorHasContent] = useState(false);
   const [isPublic, setIsPublic] = useState(false);
+  const [showPromptModal, setShowPromptModal] = useState(false);
+  const [prompt, setPrompt] = useState<string>('');
+
   const dispatch = useDispatch();
   const history = useHistory();
   const entries = useSelector((state: RootState) => state.entry);
@@ -43,44 +46,61 @@ export const Editor = (props: Props) => {
     }
     history.push('/home');
   };
+  const toggleModal = () => {
+    setShowPromptModal((prevState) => !prevState);
+  };
 
+  const handlePrompt = (_prompt: string) => {
+    setPrompt(_prompt);
+  };
   return (
-    <div>
-      <div className="w-5/6">
-        <div className="my-12 flex justify-center">
-          <TextField
-            className="w-1/2 "
-            id="title"
-            type="text"
-            label="Title"
-            value={title}
-            onChange={(val) => setTitle(val.target.value)}
-          />
-        </div>
-        <div className="w-full">
-          {entries.length > 0 && (
-            <MCEEditor
-              handleSave={handleSave}
-              saving={saveToggle}
-              storyToEdit={entryToEdit?.content ? entryToEdit.content : ''}
+    <>
+      <div>
+        <div className="w-5/6">
+          <div className="my-12 flex justify-center">
+            <TextField
+              className="w-1/2 "
+              id="title"
+              type="text"
+              label="Title"
+              value={title}
+              onChange={(val) => setTitle(val.target.value)}
             />
-          )}
-          {entries.length === 0 && (
-            <MCEEditor
-              handleSave={handleSave}
-              saving={saveToggle}
-              storyToEdit=""
-            />
-          )}
-        </div>
-        <div className="flex justify-around mx-1/2 ">
-          <Button variant="contained">Get Prompt</Button>
+          </div>
+          <div className="w-full">
+            {entries.length > 0 && (
+              <MCEEditor
+                handleSave={handleSave}
+                saving={saveToggle}
+                storyToEdit={entryToEdit?.content ? entryToEdit.content : ''}
+              />
+            )}
+            {entries.length === 0 && (
+              <MCEEditor
+                handleSave={handleSave}
+                saving={saveToggle}
+                storyToEdit=""
+              />
+            )}
+          </div>
+          <div className="flex justify-around mx-1/2 ">
+            <Button variant="contained">Get Prompt</Button>
 
-          <Button variant="contained" onClick={() => setSaveToggle(true)}>
-            Save
-          </Button>
+            <Button
+              disabled={title !== ''}
+              variant="contained"
+              onClick={() => setSaveToggle(true)}
+            >
+              Save
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+      <PromptModal
+        open={showPromptModal}
+        onUse={handlePrompt}
+        handleOpen={toggleModal}
+      />
+    </>
   );
 };
