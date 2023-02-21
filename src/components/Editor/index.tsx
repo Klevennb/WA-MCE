@@ -1,6 +1,7 @@
 import { TextField, Button } from '@mui/material';
 import { editEntry, saveEntry } from 'actions/entries';
 import { PromptModal } from 'components/Basic/Modal/PromptModal';
+import { SaveModal } from 'components/Basic/Modal/SaveModal';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -15,9 +16,11 @@ export const Editor = (props: Props) => {
   const { entryToEdit } = props;
   const [title, setTitle] = useState(entryToEdit ? entryToEdit.name : '');
   const [saveToggle, setSaveToggle] = useState(false);
-  const [isPublic, setIsPublic] = useState(false);
+  const [isPublic, setIsPublic] = useState<any>();
   const [showPromptModal, setShowPromptModal] = useState(false);
+  const [showSaveModal, setShowSaveModal] = useState(false);
   const [prompt, setPrompt] = useState<string>('');
+  const [editorContents, setEditorContents] = useState<any>();
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -28,26 +31,50 @@ export const Editor = (props: Props) => {
       setTitle(entryToEdit.name);
     }
   }, [entryToEdit]);
-
-  const handleSave = (editorContents: string, wordCount: number) => {
+  const handleSave = () => {
+    if (saveToggle === false) {
+      return;
+    }
     if (entryToEdit) {
       dispatch(
         editEntry(
           entryToEdit?.id,
-          editorContents,
+          editorContents.editorContents,
           title,
-          wordCount,
+          editorContents.wordCount,
           isPublic,
           false,
         ),
       );
     } else {
-      dispatch(saveEntry(editorContents, title, wordCount, isPublic));
+      dispatch(
+        saveEntry(
+          editorContents.editorContents,
+          title,
+          editorContents.wordCount,
+          isPublic,
+        ),
+      );
     }
+    setSaveToggle(false);
+
     history.push('/home');
   };
+  useEffect(() => {
+    handleSave();
+  }, [isPublic]);
+
+  const saveEditorContents = (_editorContents: string, wordCount: number) => {
+    setEditorContents({ editorContents: _editorContents, wordCount });
+  };
+
   const toggleModal = () => {
     setShowPromptModal((prevState) => !prevState);
+  };
+
+  const toggleSaveModal = () => {
+    setSaveToggle(true);
+    setShowSaveModal(true);
   };
 
   const handlePrompt = (_prompt: string) => {
@@ -83,13 +110,31 @@ export const Editor = (props: Props) => {
               />
             )}
           </div>
+          <div className="w-full">
+            {entries.length > 0 && (
+              <MCEEditor
+                handleSave={saveEditorContents}
+                saving={saveToggle}
+                storyToEdit={entryToEdit?.content ? entryToEdit.content : ''}
+              />
+            )}
+            {entries.length === 0 && (
+              <MCEEditor
+                handleSave={saveEditorContents}
+                saving={saveToggle}
+                storyToEdit=""
+              />
+            )}
+          </div>
+
           <div className="flex justify-around mx-1/2 ">
             <Button variant="contained">Get Prompt</Button>
 
             <Button
-              disabled={title !== ''}
+              disabled={title === ''}
               variant="contained"
-              onClick={() => setSaveToggle(true)}
+              onClick={toggleSaveModal}
+
             >
               Save
             </Button>
@@ -101,6 +146,12 @@ export const Editor = (props: Props) => {
         onUse={handlePrompt}
         handleOpen={toggleModal}
       />
+      <SaveModal
+        open={showSaveModal}
+        handleSave={(val) => setIsPublic(val)}
+        handleClose={toggleSaveModal}
+      />
+
     </>
   );
 };
