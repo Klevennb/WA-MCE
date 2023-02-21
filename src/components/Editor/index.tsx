@@ -126,6 +126,7 @@ export const Editor = (props: Props) => {
               />
             )}
           </div>
+
           <div className="flex justify-around mx-1/2 ">
             <Button variant="contained">Get Prompt</Button>
 
@@ -133,6 +134,7 @@ export const Editor = (props: Props) => {
               disabled={title === ''}
               variant="contained"
               onClick={toggleSaveModal}
+
             >
               Save
             </Button>
@@ -149,6 +151,7 @@ export const Editor = (props: Props) => {
         handleSave={(val) => setIsPublic(val)}
         handleClose={toggleSaveModal}
       />
+
     </>
   );
 };
