@@ -49,6 +49,9 @@ export const PromptModal = (props: Props) => {
               <Button onClick={() => handleCategorySelection('Fantasy')}>
                 Fantasy
               </Button>
+              <Button onClick={() => handleCategorySelection('Romance')}>
+                Romance
+              </Button>
             </div>
             <div>
               <Button onClick={handleOpen}>Cancel</Button>
