@@ -1,6 +1,8 @@
 import { Backdrop, Box, Button, Fade, Modal } from '@mui/material';
 import { useState } from 'react';
 import { style } from './styles';
+import { getPrompts } from './modalUtils';
+import { Prompts } from 'types/prompts';
 
 interface Props {
   onUse: (category: string) => void;
@@ -10,15 +12,17 @@ interface Props {
 
 export const PromptModal = (props: Props) => {
   const { onUse, open, handleOpen } = props;
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Prompts[] | null>(
+    null,
+  );
 
-  const handleCategorySelection = (category: string) => {
-    setSelectedCategory(category);
+  const handleCategorySelection = (category: number) => {
+    setSelectedCategory(getPrompts(category));
   };
 
   const handleUse = () => {
     if (selectedCategory) {
-      onUse(selectedCategory);
+      // onUse(selectedCategory);
     }
   };
 
