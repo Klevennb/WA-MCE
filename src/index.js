@@ -1,6 +1,4 @@
-/* eslint-disable react/jsx-filename-extension */
 import { createRoot } from 'react-dom/client';
-import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";

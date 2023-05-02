@@ -94,6 +94,14 @@ export const Editor = (props: Props) => {
               onChange={(val) => setTitle(val.target.value)}
             />
           </div>
+          {/* <TypeWriterEffect
+            textStyle={{ fontFamily: 'Red Hat Display' }}
+            startDelay={100}
+            cursorColor="black"
+            text={title}
+            typeSpeed={100}
+            eraseSpeed={100}
+          /> */}
           <div className="w-full">
             {entries.length > 0 && (
               <MCEEditor
@@ -110,31 +118,15 @@ export const Editor = (props: Props) => {
               />
             )}
           </div>
-          <div className="w-full">
-            {entries.length > 0 && (
-              <MCEEditor
-                handleSave={saveEditorContents}
-                saving={saveToggle}
-                storyToEdit={entryToEdit?.content ? entryToEdit.content : ''}
-              />
-            )}
-            {entries.length === 0 && (
-              <MCEEditor
-                handleSave={saveEditorContents}
-                saving={saveToggle}
-                storyToEdit=""
-              />
-            )}
-          </div>
-
           <div className="flex justify-around mx-1/2 ">
-            <Button variant="contained">Get Prompt</Button>
+            <Button variant="contained" onClick={toggleModal}>
+              Get Prompt
+            </Button>
 
             <Button
               disabled={title === ''}
               variant="contained"
               onClick={toggleSaveModal}
-
             >
               Save
             </Button>
@@ -151,7 +143,6 @@ export const Editor = (props: Props) => {
         handleSave={(val) => setIsPublic(val)}
         handleClose={toggleSaveModal}
       />
-
     </>
   );
 };

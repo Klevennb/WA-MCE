@@ -1,11 +1,11 @@
-import { TextField, Button } from "@mui/material";
-import { Component } from "react";
-import { connect } from "react-redux";
+import { TextField, Button } from '@mui/material';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 
 class LoginPage extends Component {
   state = {
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   };
 
   login = (event) => {
@@ -13,14 +13,14 @@ class LoginPage extends Component {
 
     if (this.state.username && this.state.password) {
       this.props.dispatch({
-        type: "LOGIN",
+        type: 'LOGIN',
         payload: {
           username: this.state.username,
           password: this.state.password,
         },
       });
     } else {
-      this.props.dispatch({ type: "LOGIN_INPUT_ERROR" });
+      this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
   }; // end login
 
@@ -47,7 +47,7 @@ class LoginPage extends Component {
                   id="Username"
                   label="Username"
                   variant="filled"
-                  onChange={this.handleInputChangeFor("username")}
+                  onChange={this.handleInputChangeFor('username')}
                 />
               </div>
               <div>
@@ -56,7 +56,7 @@ class LoginPage extends Component {
                   name="password"
                   value={this.state.password}
                   variant="filled"
-                  onChange={this.handleInputChangeFor("password")}
+                  onChange={this.handleInputChangeFor('password')}
                 />
               </div>
               <div>
@@ -69,23 +69,22 @@ class LoginPage extends Component {
               </div>
             </form>
           </center>
-          <center></center>
         </div>
         <div className="bg-gray-400 m-12 rounded-lg w-8/12 h-96">
           <div className="justify-center flex">
-            {" "}
+            {' '}
             <p className="my-12 text-2xl font-bold">
               New here? Get registered and start writing!
             </p>
           </div>
           <div className="justify-center flex">
-            {" "}
+            {' '}
             <Button
               variant="contained"
               type="button"
               className="link-button "
               onClick={() => {
-                this.props.dispatch({ type: "SET_TO_REGISTER_MODE" });
+                this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' });
               }}
             >
               Register

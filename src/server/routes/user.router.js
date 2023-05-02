@@ -29,19 +29,36 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id/:property', (req, res) => {
   const user = req.params.id;
-  const content = req.body.newGoal;
+  const {property} = req.params;
+  const {content} = req.body;
 
-  const queryText = `UPDATE "person" SET "word_goal"= $1
-                       WHERE "id" = $2;`;
-  pool.query(queryText, [content, user])
+  let queryText; 
+  let queryParams;
+
+  switch (property) {
+    case 'bio':
+      queryText = `UPDATE "person" SET "bio" = $1
+                   WHERE "id" = $2;`;
+      queryParams = [content, user];
+      break;
+    case 'newGoal':
+      queryText = `UPDATE "person" SET "word_goal" = $1
+                   WHERE "id" = $2;`;
+      queryParams = [content, user];
+      break;
+    default:
+      return res.sendStatus(400); // Bad request
+  }
+
+  pool.query(queryText, queryParams)
     .then(() => { res.sendStatus(200); })
     .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.log(err);
+      console.error(err);
       res.sendStatus(500);
     });
-});
 
+  return null; // Return a value to satisfy eslint
+});
 module.exports = router;

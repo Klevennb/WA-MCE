@@ -10,12 +10,11 @@ type Props = {
 
 export const UserLibrary = (props: Props) => {
   const { entries, user } = props;
-  console.log(user);
 
   return (
     <div className="flex">
-      <div className="mr-12">
-        <Sidebar user={user} />
+      <div className="w-1/4 mr-12">
+        <Sidebar user={user} entries={entries} />
       </div>
       <div className="mt-4 w-9/12">
         <UserTable entries={entries} />

@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import { Component } from 'react';
+import { connect } from 'react-redux';
 
 class RegisterPage extends Component {
   state = {
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   };
 
   registerUser = (event) => {
@@ -12,14 +12,14 @@ class RegisterPage extends Component {
 
     if (this.state.username && this.state.password) {
       this.props.dispatch({
-        type: "REGISTER",
+        type: 'REGISTER',
         payload: {
           username: this.state.username,
           password: this.state.password,
         },
       });
     } else {
-      this.props.dispatch({ type: "REGISTRATION_INPUT_ERROR" });
+      this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
     }
   }; // end registerUser
 
@@ -46,7 +46,7 @@ class RegisterPage extends Component {
                 type="text"
                 name="username"
                 value={this.state.username}
-                onChange={this.handleInputChangeFor("username")}
+                onChange={this.handleInputChangeFor('username')}
               />
             </label>
           </div>
@@ -57,7 +57,7 @@ class RegisterPage extends Component {
                 type="password"
                 name="password"
                 value={this.state.password}
-                onChange={this.handleInputChangeFor("password")}
+                onChange={this.handleInputChangeFor('password')}
               />
             </label>
           </div>
@@ -75,7 +75,7 @@ class RegisterPage extends Component {
             type="button"
             className="link-button"
             onClick={() => {
-              this.props.dispatch({ type: "SET_TO_LOGIN_MODE" });
+              this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' });
             }}
           >
             Login
