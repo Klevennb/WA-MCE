@@ -14,10 +14,14 @@ export const MCEEditor = (props: Props) => {
 
   useEffect(() => {
     if (saving && editorRef.current) {
-      handleSave(
-        editorRef.current.getContent(),
-        editorRef.current.plugins.wordcount.getCount(),
-      );
+      try {
+        handleSave(
+          editorRef.current.getContent(),
+          editorRef.current.plugins.wordcount.getCount(),
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
   }, [handleSave, saving]);
 

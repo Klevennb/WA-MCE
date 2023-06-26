@@ -7,11 +7,16 @@ type Props = {
 
 export const Streak = (props: Props) => {
   const { entries } = props;
-  const streak = entries?.length > 0 ? countStreak(entries) : 0;
+  const streak =
+    entries?.length > 0
+      ? countStreak(entries, new Date().getDate().toString())
+      : 0;
 
   return (
     <div>
-      {streak ? `You have written for ${streak} days` : 'No Streak For You!'}
+      {streak
+        ? `You have written for ${streak} day${streak > 1 ? 's' : ''}`
+        : 'No Streak For You!'}
     </div>
   );
 };

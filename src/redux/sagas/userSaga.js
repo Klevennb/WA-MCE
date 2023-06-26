@@ -36,15 +36,29 @@ function* fetchUser() {
 }
 function* editGoal(action) {
   try {
-    yield axios.put(`api/user/${action.payload.id}`, action.payload);
+    yield axios.put(`api/user/${action.id}/newGoal`, action.payload);
+    yield* fetchUser(); // delegate to fetchUser
+
   } catch (error) {
     console.log("User edit goal failed", error);
+  }
+}
+
+function* editBio(action) {
+  try {
+    yield axios.put(`api/user/${action.id}/bio`, action.payload);
+    yield* fetchUser(); // delegate to fetchUser
+
+  } catch (error) {
+    console.log("User edit bio failed", error);
   }
 }
 
 function* userSaga() {
   yield takeLatest("FETCH_USER", fetchUser);
   yield takeLatest("EDIT_GOAL", editGoal);
+    yield takeLatest("EDIT_BIO", editBio);
+
 }
 
 export default userSaga;

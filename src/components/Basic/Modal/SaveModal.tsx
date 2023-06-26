@@ -1,4 +1,5 @@
-import { Modal, Backdrop, Fade, Box, Button } from '@mui/material';
+import { Modal, Backdrop, Fade, Box } from '@mui/material';
+import Button from '../Button/Button';
 import { style } from './styles';
 
 type Props = {
@@ -25,10 +26,17 @@ export const SaveModal = (props: Props) => {
         <Fade in={open}>
           <Box sx={style}>
             <div>
-              <Button onClick={() => handleSave(false)}>
-                No, don&apost make public
-              </Button>
-              <Button onClick={() => handleSave(true)}>Yes, make public</Button>
+              <Button
+                onClick={() => handleClose()}
+                type="button"
+                label="No, don't make public"
+              />
+
+              <Button
+                onClick={() => handleSave(true)}
+                label="Yes, make public"
+                type="submit"
+              />
             </div>
           </Box>
         </Fade>

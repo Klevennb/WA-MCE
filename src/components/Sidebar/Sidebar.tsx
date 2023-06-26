@@ -1,5 +1,5 @@
 import LineBreak from 'components/Basic/LineBreak';
-import { UserBio } from 'components/UserLibrary/UserBio/UserBio';
+import { UserBio } from 'components/Sidebar/UserBio/UserBio';
 import { User } from 'types/redux';
 import { Entry } from 'types/types';
 
@@ -19,7 +19,7 @@ function getInitials(name: string) {
 }
 
 export const Sidebar = (props: Props) => {
-  const { user } = props;
+  const { user, entries } = props;
 
   return (
     <div className="flex flex-col bg-gray-300 w-full h-screen px-4 tex-gray-900 border rounded mr-12 ml-8 mt-4">
@@ -31,7 +31,7 @@ export const Sidebar = (props: Props) => {
       </div>
       <LineBreak variant="darkGray" />
       <div className="mt-3">
-        <UserBio bio={user.bio} isUser />
+        <UserBio user={user} entries={entries} />
       </div>
     </div>
   );

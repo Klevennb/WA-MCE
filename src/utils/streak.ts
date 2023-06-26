@@ -1,50 +1,24 @@
 import { Entry } from "types/types";
 
-export const countStreak = (entries: Entry[]) => {
-    const dayLength = 86400000
-    let streak = 0
-    let date = Date.now();
-    const sortedEntries = entries.sort((entryA, entryB)=> new Date(entryA.submission_time) < new Date(entryB.submission_time) ? 1 : -1)
-    for (let i = 0; i < sortedEntries.length; i++) {
-        if ((date - Date.parse(sortedEntries[i].submission_time)) < dayLength ) {
-            streak = streak + 1
-            date = date - dayLength
-        } else {
-            break
-        }
+export function countStreak(entries: Entry[], currentTime: string): number {
+  let consecutiveDays = 0;
+  let previousDay: number | null = null;
+
+  entries.forEach((entry) => {
+    const submissionTime = new Date(entry.submission_time);
+    const currentDay = new Date(currentTime).setHours(0, 0, 0, 0);
+
+    if (previousDay === null || submissionTime.getTime() === previousDay - 86400000) {
+      consecutiveDays = consecutiveDays + 1;
+    } else if (submissionTime.getTime() < previousDay - 86400000) {
+      consecutiveDays = 1;
     }
-    return streak
+
+    previousDay = submissionTime.getTime();
+    if (submissionTime.getTime() >= currentDay) {
+      return undefined; // Stop counting if an entry's submission_time exceeds currentTime
+    }
+    return undefined
+  })
+  return consecutiveDays;
 }
-
-// export const countStreak = (entries: Entry[]) => {
-//     let streak = 0;
-//     let lastProcessedDate = null;
-//     for (let i = entries.length - 1; i >= 0; i--) {
-//         if(entries[i].isDeleted) continue;
-//         const currentDate = new Date(entries[i].submission_time).toDateString();
-//         if (lastProcessedDate === currentDate) {
-//             streak++;
-//         } else {
-//             break;
-//         }
-//         lastProcessedDate = currentDate;
-//     }
-//     return streak;
-// }
-
-// export const countStreak = (entries: Entry[]) => {
-//     let streak = 0;
-//     let lastProcessedDate = null;
-//     for (let i = entries.length - 1; i >= 0; i--) {
-//         if(entries[i].isDeleted) continue;
-//         if(!lastProcessedDate) lastProcessedDate = new Date(entries[i].submission_time).toDateString();
-//         const currentDate = new Date(entries[i].submission_time).toDateString();
-//         if (lastProcessedDate === currentDate) {
-//             streak++;
-//         } else {
-//             streak = 1;
-//         }
-//         lastProcessedDate = currentDate;
-//     }
-//     return streak;
-// }

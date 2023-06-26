@@ -30,9 +30,12 @@ router.post('/logout', (req, res) => {
 });
 
 router.put('/:id/:property', (req, res) => {
+  console.log('in route');
   const user = req.params.id;
   const {property} = req.params;
-  const {content} = req.body;
+  const {data} = req.body;
+
+  console.log('in route', property, data, req.body);
 
   let queryText; 
   let queryParams;
@@ -41,12 +44,12 @@ router.put('/:id/:property', (req, res) => {
     case 'bio':
       queryText = `UPDATE "person" SET "bio" = $1
                    WHERE "id" = $2;`;
-      queryParams = [content, user];
+      queryParams = [data, user];
       break;
     case 'newGoal':
       queryText = `UPDATE "person" SET "word_goal" = $1
                    WHERE "id" = $2;`;
-      queryParams = [content, user];
+      queryParams = [data, user];
       break;
     default:
       return res.sendStatus(400); // Bad request
