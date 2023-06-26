@@ -1,4 +1,6 @@
+import { SearchBar } from 'components/Basic/SearchBar/SearchBar';
 import { Sidebar } from 'components/Sidebar/Sidebar';
+import { useEffect, useState } from 'react';
 import { User } from 'types/redux';
 import { Entry } from 'types/types';
 import { UserTable } from './Table';
@@ -10,14 +12,29 @@ type Props = {
 
 export const UserLibrary = (props: Props) => {
   const { entries, user } = props;
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredEntries, setFilteredEntries] = useState(entries);
+
+  useEffect(() => {
+    const filterEntriesByName = (searchString: string): Entry[] => {
+      return entries.filter((entry) => entry.name.includes(searchString));
+    };
+
+    if (searchQuery) {
+      setFilteredEntries(filterEntriesByName(searchQuery));
+    } else {
+      setFilteredEntries(entries);
+    }
+  }, [entries, searchQuery]);
 
   return (
     <div className="flex">
       <div className="w-1/4 mr-12">
         <Sidebar user={user} entries={entries} />
       </div>
-      <div className="mt-4 w-9/12">
-        <UserTable entries={entries} />
+      <div className="mt-4 w-9/12 gap-3 gap-y-3">
+        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />{' '}
+        <UserTable entries={filteredEntries} />
       </div>
     </div>
   );
