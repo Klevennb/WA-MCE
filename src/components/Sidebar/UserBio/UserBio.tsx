@@ -18,11 +18,13 @@ export const UserBio = ({
   const [bioModalOpen, setBioModalOpen] = useState(false);
 
   const dispatch = useDispatch();
-  const editBio = (val: any) => {
+  const editBio = (val: string | number) => {
     dispatch({ type: 'EDIT_BIO', payload: { data: val }, id: user.id });
+    setBioModalOpen(false);
   };
-  const editGoal = (val: any) => {
+  const editGoal = (val: string | number) => {
     dispatch({ type: 'EDIT_GOAL', payload: { data: val }, id: user.id });
+    setWordGoalModalOpen(false);
   };
 
   const isUser = true;
@@ -44,14 +46,25 @@ export const UserBio = ({
           ? 'Tell us about yourself'
           : 'They have not written a bio yet'}{' '}
       </div>
-      <div className="text-gray-600 flex gap-8 mt-2">
-        <Typography variant="h6">Word Goal:</Typography>
-        {wordGoal}
+      <div className="flex gap-8 mt-2">
+        <div className="text-gray-600 flex  items-center whitespace-pre">
+          {' '}
+          <Typography variant="h6">Word Goal: </Typography>
+          {wordGoal}
+        </div>
+
         {isUser && (
           <IconButton onClick={() => setWordGoalModalOpen(true)} size="small">
             <ModeEditIcon />
           </IconButton>
         )}
+      </div>
+      <div className="flex gap-8 mt-2">
+        <div className="text-gray-600 flex  items-center whitespace-pre">
+          {' '}
+          <Typography variant="h6">Stories written: </Typography>
+          {entries?.length ?? 'None'}
+        </div>
       </div>
       <InputModal
         label="Edit Word Goal"

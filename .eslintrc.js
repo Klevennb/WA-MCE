@@ -42,7 +42,6 @@ module.exports = {
       },
     ],
     // Prop-Types
-    "react/prop-types": ["warn"],
     "react/forbid-prop-types": ["warn"],
     "react/no-unused-prop-types": ["warn"],
     "react/require-default-props": ["warn"],
