@@ -1,11 +1,4 @@
-import {
-  Box,
-  Collapse,
-  IconButton,
-  TableCell,
-  TableRow,
-  Button,
-} from '@mui/material';
+import { Box, Collapse, IconButton, TableCell, TableRow } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useState } from 'react';
@@ -15,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import sanitizeHtml from 'sanitize-html';
 import { editEntry } from 'actions/entries';
 import { useDispatch } from 'react-redux';
+import Button from 'components/Basic/Button/Button';
 
 type Props = {
   entry: Entry;
@@ -71,14 +65,14 @@ export const EntryRow = (props: Props) => {
         <TableCell align="right">{entry.wordCount}</TableCell>
         <TableCell align="right">{entry.public}</TableCell>
         <TableCell align="right">
-          <Button variant="contained" onClick={handleEdit}>
-            Edit
-          </Button>
+          <Button onClick={handleEdit} label="Edit" />
         </TableCell>
         <TableCell align="right">
-          <Button onClick={() => handleDeleteModal()} variant="contained">
-            Delete
-          </Button>
+          <Button
+            onClick={() => handleDeleteModal()}
+            variant="outlined"
+            label="Delete"
+          />
         </TableCell>
       </TableRow>
       <TableRow>

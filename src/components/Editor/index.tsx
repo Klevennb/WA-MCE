@@ -16,7 +16,7 @@ export const Editor = (props: Props) => {
   const { entryToEdit } = props;
   const [title, setTitle] = useState(entryToEdit ? entryToEdit.name : '');
   const [saveToggle, setSaveToggle] = useState(false);
-  const [isPublic, setIsPublic] = useState<any>();
+  const [isPublic, setIsPublic] = useState<boolean>();
   const [showPromptModal, setShowPromptModal] = useState(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [prompt, setPrompt] = useState<string>('');
@@ -94,25 +94,17 @@ export const Editor = (props: Props) => {
               onChange={(val) => setTitle(val.target.value)}
             />
           </div>
-          {/* <TypeWriterEffect
-            textStyle={{ fontFamily: 'Red Hat Display' }}
-            startDelay={100}
-            cursorColor="black"
-            text={title}
-            typeSpeed={100}
-            eraseSpeed={100}
-          /> */}
           <div className="w-full">
             {entries.length > 0 && (
               <MCEEditor
-                handleSave={handleSave}
+                handleSave={saveEditorContents}
                 saving={saveToggle}
                 storyToEdit={entryToEdit?.content ? entryToEdit.content : ''}
               />
             )}
             {entries.length === 0 && (
               <MCEEditor
-                handleSave={handleSave}
+                handleSave={saveEditorContents}
                 saving={saveToggle}
                 storyToEdit=""
               />
@@ -141,7 +133,7 @@ export const Editor = (props: Props) => {
       <SaveModal
         open={showSaveModal}
         handleSave={(val) => setIsPublic(val)}
-        handleClose={toggleSaveModal}
+        handleClose={() => setShowSaveModal(true)}
       />
     </>
   );

@@ -1,28 +1,23 @@
-import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import Button from 'components/Basic/Button/Button';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { RootState } from 'types/redux';
-import { Entry } from 'types/types';
 import { Streak } from './Streak';
 import { WelcomeQuote } from './WelcomeQuote';
 
-type Props = {
-  entryToEdit?: Entry;
-};
-export const Welcome = (props: Props) => {
-  const { entryToEdit } = props;
-  const [title, setTitle] = useState('');
-
+export const Welcome = () => {
   const dispatch = useDispatch();
   const entries = useSelector((state: RootState) => state.entry);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch({ type: 'GET_ALL_ENTRIES' });
   }, []);
 
-  console.log(entries);
-
+  const navigateTo = (path: string) => {
+    history.push(path);
+  };
   return (
     <div className="flex justify-center">
       <div>
@@ -34,19 +29,21 @@ export const Welcome = (props: Props) => {
         </div>
         <div className="flex justify-center">
           <div className="mx-12">
-            <Button variant="outlined" size="medium">
-              <Link to="/library">My Library</Link>
-            </Button>
+            <Button
+              variant="outlined"
+              label="My Library"
+              onClick={() => navigateTo('/library')}
+            />
           </div>
           <div className="mx-12">
-            <Button variant="contained" size="large">
-              <Link to="/write">Get Writing</Link>
-            </Button>
+            <Button label="Get Writing" onClick={() => navigateTo('/write')} />
           </div>
           <div className="mx-12">
-            <Button variant="outlined" size="medium">
-              <Link to="/browse">Browse</Link>
-            </Button>
+            <Button
+              variant="outlined"
+              label="Browse"
+              onClick={() => navigateTo('/browse')}
+            />
           </div>
         </div>
       </div>
