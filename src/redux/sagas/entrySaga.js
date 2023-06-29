@@ -29,7 +29,8 @@ function* getAllEntries(action) {
       genre: res.genre,
       submission_time: res.submission_time,
       public: res.public,
-      isDeleted: res.is_deleted
+      isDeleted: res.is_deleted,
+      prompt: res.prompt
     })
     })
     yield put({ type: "SET_ENTRIES", payload });

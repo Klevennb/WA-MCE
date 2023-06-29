@@ -13,7 +13,7 @@ export const Welcome = () => {
 
   useEffect(() => {
     dispatch({ type: 'GET_ALL_ENTRIES' });
-  }, []);
+  }, [dispatch]);
 
   const navigateTo = (path: string) => {
     history.push(path);
@@ -21,7 +21,7 @@ export const Welcome = () => {
   return (
     <div className="flex justify-center">
       <div>
-        <div className="my-12 flex justify-center">
+        <div className="my-12 flex justify-center p-16">
           <WelcomeQuote />
         </div>
         <div className="my-12 flex justify-center">

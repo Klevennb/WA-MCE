@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import { SearchBar } from 'components/Basic/SearchBar/SearchBar';
 import { Sidebar } from 'components/Sidebar/Sidebar';
 import { useEffect, useState } from 'react';
@@ -29,11 +30,15 @@ export const UserLibrary = (props: Props) => {
 
   return (
     <div className="flex">
-      <div className="w-1/4 mr-12">
+      <div className="w-1/4 mr-12 mb-12">
         <Sidebar user={user} entries={entries} />
       </div>
-      <div className="mt-4 w-9/12 gap-3 gap-y-3">
-        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />{' '}
+      <div className="mt-4 w-9/12 gap-3 gap-y-3 flex flex-col">
+        <Typography variant="h4">My Library</Typography>
+        <SearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />{' '}
         <UserTable entries={filteredEntries} />
       </div>
     </div>

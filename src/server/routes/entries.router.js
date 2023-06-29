@@ -42,7 +42,7 @@ router.put('/', (req, res) => {
   const genre  = req.body.genre || "7";
   const timeLength = req.body.time_to_write || '23:59:59.9999999';
   const entryLength = req.body.entry_length;
-  const entryPrompt = req.body.entry_prompt || "7";
+  const entryPrompt = req.body.entry_prompt || "";
     const entryId = req.body.entry_id;
 
   const queryText = 'UPDATE writing_entry SET title = $1, contents= $2, length= $3, genre= $4, time_to_write= $5, prompt= $6, public= $7, is_deleted= $8 WHERE (id = $9);';
