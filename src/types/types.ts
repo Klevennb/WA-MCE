@@ -6,4 +6,5 @@ export type Entry = {
     submission_time: string
     public: boolean
     isDeleted: boolean
+    prompt: string
 }

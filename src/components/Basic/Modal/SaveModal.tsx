@@ -25,7 +25,7 @@ export const SaveModal = (props: Props) => {
       >
         <Fade in={open}>
           <Box sx={style}>
-            <div>
+            <div className="flex gap-4">
               <Button
                 onClick={() => handleClose()}
                 type="button"

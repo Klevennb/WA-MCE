@@ -1,10 +1,12 @@
 import { TextField, Button } from '@mui/material';
+import Typography from '@mui/material/Typography/Typography';
 import { editEntry, saveEntry } from 'actions/entries';
 import { PromptModal } from 'components/Basic/Modal/PromptModal';
 import { SaveModal } from 'components/Basic/Modal/SaveModal';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { Prompts } from 'types/prompts';
 import { RootState } from 'types/redux';
 import { Entry } from 'types/types';
 import { MCEEditor } from './MCEEditor';
@@ -44,6 +46,7 @@ export const Editor = (props: Props) => {
           editorContents.wordCount,
           isPublic,
           false,
+          prompt,
         ),
       );
     } else {
@@ -53,6 +56,7 @@ export const Editor = (props: Props) => {
           title,
           editorContents.wordCount,
           isPublic,
+          prompt,
         ),
       );
     }
@@ -77,14 +81,19 @@ export const Editor = (props: Props) => {
     setShowSaveModal(true);
   };
 
-  const handlePrompt = (_prompt: string) => {
-    setPrompt(_prompt);
+  const handlePrompt = (_prompt: Prompts) => {
+    setPrompt(_prompt.prompt);
+  };
+
+  const handleClose = () => {
+    setShowSaveModal(false);
+    setIsPublic(false);
   };
   return (
     <>
       <div>
         <div className="w-5/6">
-          <div className="my-12 flex justify-center">
+          <div className="my-6 flex justify-center">
             <TextField
               className="w-1/2 "
               id="title"
@@ -94,6 +103,12 @@ export const Editor = (props: Props) => {
               onChange={(val) => setTitle(val.target.value)}
             />
           </div>
+          <div className="flex justify-center w-full my-6 text-center mx-8">
+            <Typography variant="h6">
+              {prompt || entryToEdit?.prompt}
+            </Typography>
+          </div>
+
           <div className="w-full">
             {entries.length > 0 && (
               <MCEEditor
@@ -133,7 +148,7 @@ export const Editor = (props: Props) => {
       <SaveModal
         open={showSaveModal}
         handleSave={(val) => setIsPublic(val)}
-        handleClose={() => setShowSaveModal(true)}
+        handleClose={handleClose}
       />
     </>
   );

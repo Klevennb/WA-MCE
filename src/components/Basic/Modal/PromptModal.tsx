@@ -1,20 +1,19 @@
-import { Backdrop, Box, Button, Fade, Modal } from '@mui/material';
+import { Backdrop, Box, Fade, Modal } from '@mui/material';
 import { useState } from 'react';
 import { Prompts, PromptsEnum } from 'types/prompts';
 import { style } from './styles';
 import { getPrompts } from './modalUtils';
+import Button from '../Button/Button';
 
 interface Props {
-  onUse: (category: string) => void;
+  onUse: (selectedPrompt: Prompts) => void;
   handleOpen: () => void;
   open: boolean;
 }
 
 export const PromptModal = (props: Props) => {
   const { onUse, open, handleOpen } = props;
-  const [selectedCategory, setSelectedCategory] = useState<Prompts[] | null>(
-    null,
-  );
+  const [selectedCategory, setSelectedCategory] = useState<Prompts[]>([]);
   const [selectedPrompt, setSelectedPrompt] = useState<Prompts | null>(null);
 
   const handleCategorySelection = (category: number) => {
@@ -24,8 +23,9 @@ export const PromptModal = (props: Props) => {
   };
 
   const handleUse = () => {
-    if (selectedCategory) {
-      // onUse(selectedCategory);
+    if (selectedCategory && selectedPrompt) {
+      onUse(selectedPrompt);
+      handleOpen();
     }
   };
 
@@ -45,55 +45,59 @@ export const PromptModal = (props: Props) => {
         <Fade in={open}>
           <Box sx={style}>
             {!selectedCategory?.length && (
-              <div>
+              <div className="flex gap-4">
                 <Button
                   onClick={() => handleCategorySelection(PromptsEnum.journal)}
-                >
-                  Journal
-                </Button>
+                  label="Journal"
+                  variant="tertiary"
+                />
                 <Button
                   onClick={() => handleCategorySelection(PromptsEnum.scifi)}
-                >
-                  Science Fiction
-                </Button>
+                  label="Science Fiction"
+                  variant="tertiary"
+                />
                 <Button
                   onClick={() => handleCategorySelection(PromptsEnum.fantasy)}
-                >
-                  Fantasy
-                </Button>
+                  label="Fantasy"
+                  variant="tertiary"
+                />
                 <Button
                   onClick={() => handleCategorySelection(PromptsEnum.romance)}
-                >
-                  Romance
-                </Button>
+                  label="Romance"
+                  variant="tertiary"
+                />
               </div>
             )}
-            {selectedCategory?.length && (
-              <div className="flex flex-col">
+            {selectedCategory.length > 0 && (
+              <div className="flex flex-col gap-y-6">
                 <div>{selectedPrompt?.prompt}</div>
-                <div>
-                  <Button
-                    onClick={() =>
-                      setSelectedPrompt(
-                        selectedCategory[
-                          Math.round(Math.random() * selectedCategory.length)
-                        ],
-                      )
-                    }
-                  >
-                    Get new prompt
-                  </Button>
-                </div>
-                <div>
-                  <Button onClick={() => setSelectedCategory([])}>
-                    Choose different genre
-                  </Button>
+                <div className="flex gap-4 w-full justify-around">
+                  <div>
+                    <Button
+                      onClick={() =>
+                        setSelectedPrompt(
+                          selectedCategory[
+                            Math.round(Math.random() * selectedCategory.length)
+                          ],
+                        )
+                      }
+                      label="Get new prompt"
+                      variant="tertiary"
+                    />
+                  </div>
+                  <div>
+                    <Button
+                      onClick={() => setSelectedCategory([])}
+                      label="Choose different genre"
+                      variant="tertiary"
+                    />
+                  </div>
                 </div>
               </div>
             )}
-            <div>
-              <Button onClick={handleOpen}>Cancel</Button>
-              <Button onClick={handleUse}>Use</Button>
+            <div className="flex gap-4 w-full justify-center mt-4">
+              <Button onClick={handleOpen} label="Cancel" />
+              <Button onClick={handleUse} label="Use" />
             </div>
           </Box>
         </Fade>

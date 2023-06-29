@@ -1,4 +1,11 @@
-import { Box, Collapse, IconButton, TableCell, TableRow } from '@mui/material';
+import {
+  Box,
+  Collapse,
+  IconButton,
+  TableCell,
+  TableRow,
+  Checkbox,
+} from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useState } from 'react';
@@ -18,6 +25,7 @@ export const EntryRow = (props: Props) => {
   const { entry } = props;
   const [open, setOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [publicPost, setPublicPost] = useState(entry.public);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -38,6 +46,21 @@ export const EntryRow = (props: Props) => {
         true,
       ),
     );
+  };
+
+  const changePublicState = () => {
+    dispatch(
+      editEntry(
+        entry.id,
+        entry.content,
+        entry.name,
+        entry.wordCount,
+        !publicPost,
+        false,
+        entry.prompt,
+      ),
+    );
+    setPublicPost(!publicPost);
   };
 
   const handleEdit = () => {
@@ -63,7 +86,14 @@ export const EntryRow = (props: Props) => {
           {entry.submission_time.slice(0, 10)}
         </TableCell>
         <TableCell align="right">{entry.wordCount}</TableCell>
-        <TableCell align="right">{entry.public}</TableCell>
+        <TableCell align="right">
+          {' '}
+          <Checkbox
+            checked={publicPost}
+            color="secondary"
+            onClick={changePublicState}
+          />
+        </TableCell>
         <TableCell align="right">
           <Button onClick={handleEdit} label="Edit" />
         </TableCell>

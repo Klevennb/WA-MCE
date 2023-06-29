@@ -1,13 +1,14 @@
-export const saveEntry = (editorContents: string, title: string, wordCount: number, isPublic = false) => ({
+export const saveEntry = (editorContents: string, title: string, wordCount: number, isPublic = false, prompt = '') => ({
       type: 'ADD_ENTRY',
       payload: {
         contents: editorContents,
         title,
         entry_length: wordCount,
-        isPublic
+        isPublic,
+        entry_prompt: prompt
       }});
 
-export const editEntry = (entryId: string, editorContents: string, title: string, wordCount: number, isPublic?: boolean, isDeleted?: boolean) => ({
+export const editEntry = (entryId: string, editorContents: string, title: string, wordCount: number, isPublic?: boolean, isDeleted?: boolean, prompt = '') => ({
       type: 'EDIT_ENTRY',
       payload: {
         entry_id: entryId,
@@ -15,7 +16,8 @@ export const editEntry = (entryId: string, editorContents: string, title: string
         title,
         entry_length: wordCount,
         isPublic,
-        isDeleted
+        isDeleted,
+        entry_prompt: prompt
       }});
 
 export const deleteEntry = (id: string) => ({
