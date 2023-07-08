@@ -1,5 +1,5 @@
 CREATE TABLE "person" (
-  "id" SERIAL PRIMARY KEY,
+  "id" UUID PRIMARY KEY,
   "username" varchar UNIQUE NOT NULL,
   "password" varchar NOT NULL,
   "current_streak" int,
@@ -17,7 +17,7 @@ CREATE TABLE "genre_types" (
 
 CREATE TABLE "writing_entry" (
   "id" uuid DEFAULT uuid_generate_v4 (),
-  "author_id" int,
+  "author_id" uuid,
   "title" varchar,
   "contents" varchar,
   "length" int,
@@ -36,4 +36,9 @@ CREATE TABLE "prompts" (
   "text" varchar,
   "image_url" varchar,
   "credit_url" varchar
+);
+
+CREATE TABLE friends_table (
+    user_id UUID,
+    user_friend UUID
 );

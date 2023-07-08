@@ -46,7 +46,7 @@ function* editEntry(action) {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
-    const response = yield axios.put("/api/entries", action.payload, config);
+    yield axios.put("/api/entries", action.payload, config);
     // yield put({ type: "EDIT_ENTRIES", payload: response.data });  <--- What's this for?
   } catch (error) {    
     console.error(error)
@@ -60,7 +60,7 @@ function* softDeleteEntry(action) {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
-    const response = yield axios.put("/api/entries", action.payload, config);
+    yield axios.put("/api/entries", action.payload, config);
     // yield put({ type: "EDIT_ENTRIES", payload: response.data });
   } catch (error) {     
     console.error(error)

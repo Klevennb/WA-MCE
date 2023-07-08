@@ -1,5 +1,8 @@
+const { randomUUID } = require('crypto');
 const express = require('express');
-const { rejectUnauthenticated } = require('../modules/authenticaion-middleware');
+const {
+  rejectUnauthenticated,
+} = require('../modules/authenticaion-middleware');
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../modules/user.strategy');
@@ -13,11 +16,20 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/register', (req, res, next) => {
   const { username } = req.body;
   const password = encryptLib.encryptPassword(req.body.password);
+  const id = randomUUID();
 
-  const queryText = 'INSERT INTO person (username, password) VALUES ($1, $2) RETURNING id';
-  pool.query(queryText, [username, password])
-    .then(() => { res.sendStatus(201); })
-    .catch((err) => { next(err); });
+  console.log(id, 'id');
+
+  const queryText =
+    'INSERT INTO person (id, username, password) VALUES ($1, $2, $3) RETURNING id';
+  pool
+    .query(queryText, [id, username, password])
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
@@ -30,14 +42,10 @@ router.post('/logout', (req, res) => {
 });
 
 router.put('/:id/:property', (req, res) => {
-  console.log('in route');
   const user = req.params.id;
-  const {property} = req.params;
-  const {data} = req.body;
-
-  console.log('in route', property, data, req.body);
-
-  let queryText; 
+  const { property } = req.params;
+  const { data } = req.body;
+  let queryText;
   let queryParams;
 
   switch (property) {
@@ -55,8 +63,11 @@ router.put('/:id/:property', (req, res) => {
       return res.sendStatus(400); // Bad request
   }
 
-  pool.query(queryText, queryParams)
-    .then(() => { res.sendStatus(200); })
+  pool
+    .query(queryText, queryParams)
+    .then(() => {
+      res.sendStatus(200);
+    })
     .catch((err) => {
       console.error(err);
       res.sendStatus(500);
