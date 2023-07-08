@@ -110,20 +110,11 @@ export const Editor = (props: Props) => {
           </div>
 
           <div className="w-full">
-            {entries.length > 0 && (
-              <MCEEditor
-                handleSave={saveEditorContents}
-                saving={saveToggle}
-                storyToEdit={entryToEdit?.content ? entryToEdit.content : ''}
-              />
-            )}
-            {entries.length === 0 && (
-              <MCEEditor
-                handleSave={saveEditorContents}
-                saving={saveToggle}
-                storyToEdit=""
-              />
-            )}
+            <MCEEditor
+              handleSave={saveEditorContents}
+              saving={saveToggle}
+              storyToEdit={entryToEdit?.content ? entryToEdit.content : ''}
+            />
           </div>
           <div className="flex justify-around mx-1/2 ">
             <Button variant="contained" onClick={toggleModal}>

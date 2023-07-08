@@ -9,7 +9,7 @@ const passport = require("./modules/user.strategy");
 
 // Route includes
 const userRouter = require("./routes/user.router");
-// const promptsRouter = require('./routes/prompts.router');
+const followersRouter = require('./routes/followers.router');
 const entriesRouter = require("./routes/entries.router");
 // const genresRouter = require('./routes/genres.router');
 
@@ -26,7 +26,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use("/api/user", userRouter);
-// app.use('/api/prompts', promptsRouter);
+app.use('/api/followers', followersRouter);
 app.use("/api/entries", entriesRouter);
 // app.use('/api/genres', genresRouter);
 
