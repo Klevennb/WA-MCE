@@ -17,7 +17,7 @@
 
 In the project directory, you can run the following scripts:
 
-### `npm run clint`
+### `npm run client`
 
 Runs the WriteAway application in development mode.\
 Open [http://localhost:3000](http://localhost:3000) in your browser to view it.
