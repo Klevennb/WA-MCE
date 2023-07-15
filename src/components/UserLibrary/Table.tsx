@@ -17,7 +17,7 @@ type Props = {
 };
 
 export const UserTable = (props: Props) => {
-  const { entries } = props;
+  const { entries = [] } = props;
   const headers = [
     'Title',
     'Date',

@@ -7,5 +7,8 @@ export const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
+  pt: 4,
+  pl: 4,
+  pr: 4,
+  pb: 2,
 };

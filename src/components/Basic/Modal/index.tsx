@@ -35,11 +35,11 @@ export const TransitionsModal = (props: Props) => {
           <Typography id="transition-modal-description" sx={{ mt: 2 }}>
             This will be permanent, but it won&#39;t effect your streak.
           </Typography>
-          <Box className="flex justify-end">
-            <Button onClick={handleOpen} className="m-2">
+          <Box className="flex justify-end mt-6">
+            <Button onClick={handleOpen} className="my-2">
               Cancel
             </Button>
-            <Button onClick={handleConfirmation} className="m-2">
+            <Button onClick={handleConfirmation} className="my-2">
               I&#39;m sure
             </Button>
           </Box>

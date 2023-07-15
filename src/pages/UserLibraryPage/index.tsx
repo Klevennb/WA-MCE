@@ -13,6 +13,8 @@ export const UserLibraryPage = () => {
   }, []);
 
   return (
-    <div>{entries.length && <UserLibrary user={user} entries={entries} />}</div>
+    <div>
+      <UserLibrary user={user} entries={entries} />
+    </div>
   );
 };
