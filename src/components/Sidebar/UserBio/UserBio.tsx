@@ -50,7 +50,7 @@ export const UserBio = ({
         <div className="text-gray-600 flex  items-center whitespace-pre">
           {' '}
           <Typography variant="h6">Word Goal: </Typography>
-          {wordGoal}
+          {wordGoal ? wordGoal : 'Set a goal!'}
         </div>
 
         {isUser && (

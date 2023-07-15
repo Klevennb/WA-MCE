@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const UserLibrary = (props: Props) => {
-  const { entries, user } = props;
+  const { entries = [], user } = props;
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredEntries, setFilteredEntries] = useState(entries);
 
@@ -31,15 +31,18 @@ export const UserLibrary = (props: Props) => {
   return (
     <div className="flex">
       <div className="w-1/4 mr-12 mb-12">
-        <Sidebar user={user} entries={entries} />
+        {entries.length > 0 && <Sidebar user={user} entries={entries} />}
       </div>
       <div className="mt-4 w-9/12 gap-3 gap-y-3 flex flex-col">
         <Typography variant="h4">My Library</Typography>
-        <SearchBar
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />{' '}
-        <UserTable entries={filteredEntries} />
+        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        {entries.length > 0 ? (
+          <UserTable entries={filteredEntries} />
+        ) : (
+          <Typography variant="h5">
+            Once you start writing, your stories will go here!
+          </Typography>
+        )}
       </div>
     </div>
   );
