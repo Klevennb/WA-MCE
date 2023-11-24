@@ -1,4 +1,4 @@
-const { randomUUID } = require('crypto');
+const { uuid } = require('uuidv4');
 const express = require('express');
 const {
   rejectUnauthenticated,
@@ -16,7 +16,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/register', (req, res, next) => {
   const { username } = req.body;
   const password = encryptLib.encryptPassword(req.body.password);
-  const id = randomUUID();
+  const id = uuid();
 
   console.log(id, 'id');
 
