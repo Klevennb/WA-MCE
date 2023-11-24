@@ -5,6 +5,8 @@ type ButtonProps = {
   onClick: () => void;
   variant?: 'primary' | 'secondary' | 'tertiary' | 'outlined';
   type?: 'button' | 'submit';
+  disabled?: boolean;
+  icon?: React.ReactElement;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -12,6 +14,8 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   variant = 'primary',
   type = 'button',
+  disabled = false,
+  icon,
 }) => {
   let variantClasses = '';
   let variantColor = '';
@@ -43,8 +47,11 @@ const Button: React.FC<ButtonProps> = ({
         style={{ background: variantColor, width: '150px' }}
         // Use a static string value for the type attribute
         type={type === 'button' ? 'button' : 'submit'}
+        disabled={disabled}
       >
-        {label}
+        <div className="gap-4">
+          {label} {icon ?? icon}
+        </div>
       </button>
     </div>
   );

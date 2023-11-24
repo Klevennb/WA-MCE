@@ -6,7 +6,7 @@ export const NavBar = () => {
   const dispatch = useDispatch();
 
   return (
-    <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-stone-500 mb-3">
+    <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-stone-500 mb-3 shadow-md">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
           <a
@@ -23,22 +23,17 @@ export const NavBar = () => {
             />
           </a>
         </div>
-        <div
-          className="lg:flex flex-grow items-center flex"
-          id="example-navbar-danger"
-        >
-          {user && (
+        <div className="lg:flex flex-grow items-center flex">
+          {user?.id && (
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              {user && (
-                <li className="nav-item">
-                  <a
-                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                    href="#write"
-                  >
-                    <p className="ml-2">Write</p>
-                  </a>
-                </li>
-              )}
+              <li className="nav-item">
+                <a
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  href="#write"
+                >
+                  <p className="ml-2">Write</p>
+                </a>
+              </li>
               <li className="nav-item">
                 <a
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"

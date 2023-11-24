@@ -22,8 +22,8 @@ export const Sidebar = (props: Props) => {
   const { user, entries } = props;
 
   return (
-    <div className="flex flex-col bg-gray-300 w-full h-screen px-4 tex-gray-900 border rounded mr-12 ml-8 mt-4">
-      <div className="flex m-4 align-center">
+    <div className="flex flex-col bg-gray-300 w-full h-screen px-4 tex-gray-900 border rounded mr-12 ml-8 mt-4 shadow-md">
+      <div className="flex m-4 align-center items-center">
         <div className="bg-gray-500 text-white rounded-full h-10 w-10 flex items-center justify-center text-lg mr-2">
           <span>{getInitials(user.username)}</span>
         </div>

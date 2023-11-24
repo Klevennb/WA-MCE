@@ -8,7 +8,7 @@ import { Entry } from 'types/types';
 
 export const UserBio = ({
   user,
-  entries,
+  entries = [],
 }: {
   user: User;
   entries: Entry[];
